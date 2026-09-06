@@ -340,6 +340,43 @@
             .gallery-section h2 { font-size: 24px; }
         }
 
+        /* ---------- Clients ---------- */
+        .clients-section {
+            background: #ffffff;
+            padding: 40px 0;
+            overflow: hidden;
+        }
+
+        .clients-section h2 {
+            color: var(--heading);
+            text-align: center;
+            margin: 0 0 26px;
+            font-size: 24px;
+        }
+
+        .clients-marquee {
+            display: flex;
+            width: max-content;
+            animation: clients-scroll 40s linear infinite;
+        }
+
+        .clients-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        .clients-marquee img {
+            height: 60px;
+            width: auto;
+            margin: 0 40px;
+            object-fit: contain;
+            flex: 0 0 auto;
+        }
+
+        @keyframes clients-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
         /* ---------- About ---------- */
         .about-section {
             background: var(--teal);
@@ -661,6 +698,12 @@
         </div>
     </section>
 
+    <!-- ===== Clients ===== -->
+    <section class="clients-section" id="clients">
+        <h2>Our Clients</h2>
+        <div class="clients-marquee" id="clientsMarquee"></div>
+    </section>
+
     <footer id="contact">
         <span class="logo-lockup">
             <img class="site-logo" src="logo-svg.svg" alt="Hindustan Products and Control Systems logo">
@@ -684,6 +727,25 @@
         (function () {
             var y = document.getElementById('copyrightYear');
             if (y) y.textContent = new Date().getFullYear();
+        })();
+    </script>
+
+    <script src="clients/clients-manifest.js"></script>
+    <script>
+        (function () {
+            var marquee = document.getElementById('clientsMarquee');
+            var logos = window.CLIENT_LOGOS || [];
+            var section = document.getElementById('clients');
+            if (!marquee || !logos.length) { if (section) section.hidden = true; return; }
+            // duplicate the set so the loop scrolls seamlessly (keyframe ends at -50%)
+            logos.concat(logos).forEach(function (name, i) {
+                var img = document.createElement('img');
+                img.src = 'clients/' + name;
+                img.alt = 'Client logo';
+                img.loading = 'lazy';
+                if (i >= logos.length) img.setAttribute('aria-hidden', 'true');
+                marquee.appendChild(img);
+            });
         })();
     </script>
 
