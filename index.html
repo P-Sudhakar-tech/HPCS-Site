@@ -19,6 +19,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: "Segoe UI", Arial, sans-serif;
             margin: 0;
@@ -74,6 +78,49 @@
             .logo-tagline { margin-top: -9px; letter-spacing: 0.35em; font-size: 13px; }
         }
 
+        /* ---------- Navigation ---------- */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--navy);
+            border-bottom: 3px solid var(--teal);
+        }
+
+        .site-nav ul {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .site-nav a {
+            display: block;
+            padding: 14px 20px;
+            color: #dbe8ec;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .site-nav a:hover {
+            background: var(--teal);
+            color: #ffffff;
+        }
+
+        #home,
+        [id="products"],
+        [id="gallery"],
+        [id="about"],
+        [id="contact"] {
+            scroll-margin-top: 56px;
+        }
+
         /* ---------- Cover ---------- */
         .cover-header {
             background: var(--page-bg);
@@ -82,19 +129,18 @@
         }
 
         .cover-panel {
-            background: var(--navy);
-            padding: 50px 20px 60px;
+            background: var(--page-bg);
+            padding: 40px 20px 50px;
             text-align: center;
         }
 
         .cover-panel img {
             width: 70%;
             max-width: 560px;
-            border-radius: 2px;
         }
 
         .cover-tagline {
-            color: var(--cyan);
+            color: var(--heading);
             font-size: 26px;
             font-weight: bold;
             font-style: italic;
@@ -182,6 +228,116 @@
             content: '\2705';
             position: absolute;
             left: 0;
+        }
+
+        .pq-gallery {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .pq-gallery img {
+            width: 100%;
+            height: 130px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 3px;
+            padding: 8px;
+        }
+
+        /* ---------- Gallery ---------- */
+        .gallery-section {
+            background: var(--navy);
+            padding: 50px 20px;
+        }
+
+        .gallery-section h2 {
+            color: var(--cyan);
+            text-align: center;
+            margin: 0 0 24px;
+            font-size: 30px;
+        }
+
+        .gallery {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .gallery-viewport {
+            overflow: hidden;
+            border-radius: 4px;
+            background: #04252f;
+        }
+
+        .gallery-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-slide {
+            min-width: 100%;
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            height: 460px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.45);
+            color: #fff;
+            border: 0;
+            font-size: 26px;
+            line-height: 1;
+            width: 44px;
+            height: 58px;
+            cursor: pointer;
+        }
+
+        .gallery-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .gallery-btn.prev {
+            left: 0;
+        }
+
+        .gallery-btn.next {
+            right: 0;
+        }
+
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .gallery-dots button {
+            width: 10px;
+            height: 10px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: #5b6b73;
+            cursor: pointer;
+        }
+
+        .gallery-dots button.active {
+            background: var(--cyan);
+        }
+
+        @media (max-width: 600px) {
+            .gallery-slide img { height: 260px; }
+            .gallery-section h2 { font-size: 24px; }
         }
 
         /* ---------- About ---------- */
@@ -305,6 +461,22 @@
             line-height: 1.8;
         }
 
+        .footer-address {
+            font-style: normal;
+            margin-top: 14px;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--heading);
+        }
+
+        .footer-copyright {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(11, 85, 99, 0.25);
+            font-size: 12px;
+            color: var(--heading);
+        }
+
         @media (max-width: 600px) {
             h2.section-title { font-size: 24px; }
             .cover-tagline { font-size: 20px; }
@@ -314,6 +486,8 @@
 
 <body>
 
+    <a id="home"></a>
+
     <!-- ===== Cover ===== -->
     <header class="cover-header">
         <span class="logo-lockup">
@@ -322,8 +496,18 @@
         </span>
     </header>
 
+    <!-- ===== Navigation ===== -->
+    <nav class="site-nav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#gallery">Products &amp; Services</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
     <section class="cover-panel">
-        <img src="machine_image2.jpeg" alt="Automation assembly machine">
+        <img src="Viper-Omron-360-0081_Transparent1.webp" alt="Omron six-axis industrial robot arm">
         <div class="cover-tagline">
             "Enhancing Efficiency with Advanced Automation and Tailored Modification Services"
         </div>
@@ -336,9 +520,10 @@
     </div>
 
     <!-- ===== Company Overview + Expertise ===== -->
-    <section class="overview-section">
+    <section class="overview-section" id="products">
         <div class="overview-inner">
-            <img class="overview-image" src="machine_image1.jpeg" alt="Industrial control systems">
+            <!-- <img class="overview-image" src="machine_image1.jpeg" alt="Industrial control systems"> -->
+            <img class="overview-image" src="HPCS_RAIL.jpeg" alt="Industrial control systems">
             <div class="overview-card">
                 <div class="quote">&#8220;</div>
                 <h3>Company Overview</h3>
@@ -355,15 +540,30 @@
                     <li><strong>PLC Suppliers &amp; Programming</strong> &ndash; Mitsubishi, Omron, Siemens, Schneider, IDEC, Fuji Electric</li>
                     <li><strong>Chain Conveyor &amp; Machine Modifications</strong> &ndash; Optimizing performance and durability</li>
                     <li><strong>Special Purpose Machines (SPM)</strong> &ndash; Custom-built machines for industrial needs</li>
-                    <li><strong>Power Quality Solutions</strong> &ndash; SVG, AHF, Ultra AHF &amp; Ultra SVG for improved power reliability and efficiency</li>
+                    <li><strong>Power Quality Solutions</strong> &ndash; SVG, AHF, Ultra AHF &amp; Ultra SVG for improved power reliability and efficiency
+                        <div class="pq-gallery" id="pqGallery"></div>
+                    </li>
                     <li><strong>SCADA Systems</strong> &ndash; Mitsubishi, Delta, Siemens, Schneider, Omron, Pro-face for real-time monitoring, data acquisition, and centralized process control</li>
                 </ul>
             </div>
         </div>
     </section>
 
+    <!-- ===== Gallery ===== -->
+    <section class="gallery-section" id="gallery">
+        <h2>Our Products and Services</h2>
+        <div class="gallery">
+            <div class="gallery-viewport">
+                <div class="gallery-track" id="galleryTrack"></div>
+            </div>
+            <button class="gallery-btn prev" id="galleryPrev" type="button" aria-label="Previous image">&#8249;</button>
+            <button class="gallery-btn next" id="galleryNext" type="button" aria-label="Next image">&#8250;</button>
+            <div class="gallery-dots" id="galleryDots"></div>
+        </div>
+    </section>
+
     <!-- ===== About Us ===== -->
-    <section class="about-section">
+    <section class="about-section" id="about">
         <div class="page">
             <h2 class="section-title" style="color:#ffffff;">About Us</h2>
             <p>
@@ -461,7 +661,7 @@
         </div>
     </section>
 
-    <footer>
+    <footer id="contact">
         <span class="logo-lockup">
             <img class="site-logo" src="logo-svg.svg" alt="Hindustan Products and Control Systems logo">
             <span class="logo-tagline">CREATE, INNOVATE</span>
@@ -471,7 +671,95 @@
             <a href="mailto:sales.services@hpcsmc.co.in">sales.services@hpcsmc.co.in</a><br>
             <a href="tel:+917893993006">+91 78939 93006</a>
         </div>
+        <address class="footer-address">
+            28/847, Shamshad Manzil, Jalal Pet, Machilipatnam, Andhra Pradesh.<br>
+            GSTIN: 37AARFH6762K1ZL
+        </address>
+        <div class="footer-copyright">
+            &copy; <span id="copyrightYear">2026</span> Hindustan Products and Control Systems. All rights reserved.
+        </div>
     </footer>
+
+    <script>
+        (function () {
+            var y = document.getElementById('copyrightYear');
+            if (y) y.textContent = new Date().getFullYear();
+        })();
+    </script>
+
+    <script src="power_quality_systems_pics/pq-manifest.js"></script>
+    <script>
+        (function () {
+            var wrap = document.getElementById('pqGallery');
+            var pics = window.PQ_IMAGES || [];
+            if (!wrap || !pics.length) { if (wrap) wrap.hidden = true; return; }
+            pics.forEach(function (name, i) {
+                var img = document.createElement('img');
+                img.src = 'power_quality_systems_pics/' + name;
+                img.alt = 'Power quality solution ' + (i + 1);
+                img.loading = 'lazy';
+                wrap.appendChild(img);
+            });
+        })();
+    </script>
+
+    <script src="HPCS_GALLERY/gallery-manifest.js"></script>
+    <script>
+        (function () {
+            var images = window.GALLERY_IMAGES || [];
+            var section = document.getElementById('gallery');
+            var track = document.getElementById('galleryTrack');
+            var dotsWrap = document.getElementById('galleryDots');
+            if (!section || !track || !images.length) {
+                if (section) section.hidden = true;
+                return;
+            }
+
+            var index = 0;
+            var delay = 4000;
+            var timer = null;
+
+            images.forEach(function (name, i) {
+                var slide = document.createElement('div');
+                slide.className = 'gallery-slide';
+                var img = document.createElement('img');
+                img.src = 'HPCS_GALLERY/' + name;
+                img.alt = 'HPCS project photo ' + (i + 1);
+                img.loading = 'lazy';
+                slide.appendChild(img);
+                track.appendChild(slide);
+
+                var dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+                dot.addEventListener('click', function () { goTo(i); autoPlay(); });
+                dotsWrap.appendChild(dot);
+            });
+
+            var dots = dotsWrap.children;
+
+            function goTo(n) {
+                index = (n + images.length) % images.length;
+                track.style.transform = 'translateX(-' + (index * 100) + '%)';
+                for (var k = 0; k < dots.length; k++) {
+                    dots[k].className = (k === index) ? 'active' : '';
+                }
+            }
+            function nextSlide() { goTo(index + 1); }
+            function prevSlide() { goTo(index - 1); }
+
+            function autoPlay() {
+                clearInterval(timer);
+                timer = setInterval(nextSlide, delay);
+            }
+
+            document.getElementById('galleryNext').addEventListener('click', function () { nextSlide(); autoPlay(); });
+            document.getElementById('galleryPrev').addEventListener('click', function () { prevSlide(); autoPlay(); });
+
+            goTo(0);
+            autoPlay();
+        })();
+    </script>
 
 </body>
 
