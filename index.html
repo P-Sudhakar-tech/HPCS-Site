@@ -117,6 +117,7 @@
         [id="products"],
         [id="gallery"],
         [id="about"],
+        [id="quote"],
         [id="contact"] {
             scroll-margin-top: 56px;
         }
@@ -128,24 +129,149 @@
             padding: 40px 20px 25px;
         }
 
-        .cover-panel {
-            background: var(--page-bg);
-            padding: 40px 20px 50px;
+        /* ---------- Hero slider ---------- */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(120deg, var(--navy) 0%, #0b4a5c 60%, var(--teal) 140%);
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.9s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .hero-inner {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .hero-text {
+            flex: 1 1 340px;
+            color: #ffffff;
+        }
+
+        .hero-text h2 {
+            font-size: 34px;
+            line-height: 1.2;
+            margin: 0 0 14px;
+        }
+
+        .hero-text p {
+            font-size: 17px;
+            color: #d5e9ec;
+            margin: 0 0 24px;
+            max-width: 460px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--teal);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 13px;
+            padding: 12px 26px;
+            border-radius: 26px;
+            transition: background 0.25s, transform 0.25s;
+        }
+
+        .hero-cta:hover {
+            background: #ffffff;
+            color: var(--navy);
+            transform: translateY(-2px);
+        }
+
+        .hero-media {
+            flex: 1 1 300px;
             text-align: center;
         }
 
-        .cover-panel img {
-            width: 70%;
-            max-width: 560px;
+        .hero-media img {
+            max-width: 100%;
+            max-height: 360px;
+            width: auto;
+            border-radius: 4px;
         }
 
-        .cover-tagline {
-            color: var(--heading);
-            font-size: 26px;
-            font-weight: bold;
-            font-style: italic;
-            max-width: 640px;
-            margin: 35px auto 0;
+        .hero-dots {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            z-index: 3;
+        }
+
+        .hero-dots button {
+            width: 11px;
+            height: 11px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+        }
+
+        .hero-dots button.active {
+            background: #ffffff;
+        }
+
+        .hero-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 0;
+            width: 44px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .hero-arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-arrow.prev { left: 0; }
+        .hero-arrow.next { right: 0; }
+
+        @media (max-width: 700px) {
+            .hero-text h2 { font-size: 25px; }
+            .hero-inner { padding: 40px 20px 54px; }
+        }
+
+        /* ---------- Reveal on scroll ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: none;
         }
 
         .cover-contact {
@@ -339,6 +465,114 @@
         @media (max-width: 600px) {
             .gallery-slide img { height: 260px; }
             .gallery-section h2 { font-size: 24px; }
+        }
+
+        /* ---------- Request a quote ---------- */
+        .quote-section {
+            background: #f3f5f6;
+            padding: 60px 20px;
+        }
+
+        .quote-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .quote-intro {
+            flex: 1 1 300px;
+        }
+
+        .quote-intro h2 {
+            color: var(--heading);
+            font-size: 30px;
+            margin: 0 0 10px;
+        }
+
+        .quote-intro h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--teal);
+            margin-top: 12px;
+        }
+
+        .quote-intro p {
+            margin: 22px 0 0;
+            color: #4a5a61;
+        }
+
+        .quote-intro .lead {
+            color: var(--teal);
+            font-weight: bold;
+        }
+
+        .quote-form {
+            flex: 1 1 420px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .quote-form input,
+        .quote-form select,
+        .quote-form textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #d7dee1;
+            border-radius: 3px;
+            font: inherit;
+            background: #ffffff;
+            color: #06303f;
+        }
+
+        .quote-form input:focus,
+        .quote-form select:focus,
+        .quote-form textarea:focus {
+            outline: 2px solid var(--teal);
+            border-color: var(--teal);
+        }
+
+        .quote-form .full {
+            grid-column: 1 / -1;
+        }
+
+        .quote-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .quote-form button {
+            justify-self: start;
+            background: var(--teal);
+            color: #ffffff;
+            border: 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 13px;
+            padding: 14px 34px;
+            border-radius: 26px;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+
+        .quote-form button:hover {
+            background: var(--navy);
+        }
+
+        .quote-note {
+            grid-column: 1 / -1;
+            font-size: 13px;
+            color: #4a5a61;
+            min-height: 18px;
+        }
+
+        @media (max-width: 620px) {
+            .quote-form { grid-template-columns: 1fr; }
         }
 
         /* ---------- Clients ---------- */
@@ -540,15 +774,52 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#gallery">Products &amp; Services</a></li>
             <li><a href="#about">About Us</a></li>
+            <li><a href="#quote">Request a Quote</a></li>
             <li><a href="#contact">Contact Us</a></li>
         </ul>
     </nav>
 
-    <section class="cover-panel">
-        <img src="Viper-Omron-360-0081_Transparent1.webp" alt="Omron six-axis industrial robot arm">
-        <div class="cover-tagline">
-            "Enhancing Efficiency with Advanced Automation and Tailored Modification Services"
+    <!-- ===== Hero slider ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-slide active">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h2>Enhancing Efficiency with Advanced Automation</h2>
+                    <p>Factory automation, industrial robotics and PLC-based control systems built around your process.</p>
+                    <a class="hero-cta" href="#gallery">View Our Products</a>
+                </div>
+                <div class="hero-media">
+                    <img src="Viper-Omron-360-0081_Transparent1.webp" alt="Omron six-axis industrial robot arm">
+                </div>
+            </div>
         </div>
+        <div class="hero-slide">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h2>Tailored Modification &amp; Special Purpose Machines</h2>
+                    <p>Custom-built machines and chain conveyor modifications that raise performance, durability and output.</p>
+                    <a class="hero-cta" href="#about">About Our Company</a>
+                </div>
+                <div class="hero-media">
+                    <img src="choose-industrial-robot.jpg.jpeg" alt="Industrial robot arms on an automated line">
+                </div>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h2>Power Quality &amp; SCADA Solutions</h2>
+                    <p>SVG, AHF and Ultra AHF systems with real-time SCADA monitoring for reliable, efficient plants.</p>
+                    <a class="hero-cta" href="#contact">Talk to Our Team</a>
+                </div>
+                <div class="hero-media">
+                    <img src="modern-manufacturing-robotic-arms-action_174954-7265-1140x570.jpg.jpeg" alt="Robotic arms welding on a manufacturing line">
+                </div>
+            </div>
+        </div>
+        <button class="hero-arrow prev" id="heroPrev" type="button" aria-label="Previous slide">&#8249;</button>
+        <button class="hero-arrow next" id="heroNext" type="button" aria-label="Next slide">&#8250;</button>
+        <div class="hero-dots" id="heroDots"></div>
     </section>
 
     <div class="cover-contact">
@@ -699,6 +970,42 @@
         </div>
     </section>
 
+    <!-- ===== Request a quote ===== -->
+    <section class="quote-section" id="quote">
+        <div class="quote-inner">
+            <div class="quote-intro">
+                <h2>Request A Quote</h2>
+                <p><span class="lead">For Business:</span> Have questions about how Hindustan Products and Control Systems
+                    can support your plant? Send us an email or call <strong>+91 78939 93006</strong>. We are eager to
+                    discuss how we can help with your automation, machine modification and power quality needs.</p>
+            </div>
+            <form class="quote-form" id="quoteForm" method="POST"
+                action="https://formsubmit.co/sales.services@hpcsmc.co.in" novalidate>
+                <input type="text" name="firstName" placeholder="First Name*" required>
+                <input type="text" name="lastName" placeholder="Last Name*" required>
+                <input type="email" name="email" placeholder="Email*" required>
+                <input type="tel" name="phone" placeholder="Phone">
+                <select name="service" class="full">
+                    <option value="">Select Your Service</option>
+                    <option>Factory Automation &amp; Industrial Robotics</option>
+                    <option>PLC Supply &amp; Programming</option>
+                    <option>Chain Conveyor &amp; Machine Modifications</option>
+                    <option>Special Purpose Machines (SPM)</option>
+                    <option>Power Quality Solutions (SVG / AHF)</option>
+                    <option>SCADA Systems</option>
+                </select>
+                <textarea name="requirements" class="full" placeholder="Other Requirements..."></textarea>
+                <input type="hidden" name="_subject" value="New quote request - HPCS website">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true"
+                    style="position:absolute;left:-9999px;">
+                <p class="quote-note" id="quoteNote"></p>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+
     <!-- ===== Clients ===== -->
     <section class="clients-section" id="clients">
         <h2>Our Clients</h2>
@@ -728,6 +1035,124 @@
         (function () {
             var y = document.getElementById('copyrightYear');
             if (y) y.textContent = new Date().getFullYear();
+        })();
+    </script>
+
+    <!-- Hero slider -->
+    <script>
+        (function () {
+            var hero = document.getElementById('hero');
+            if (!hero) return;
+            var slides = hero.querySelectorAll('.hero-slide');
+            var dotsWrap = document.getElementById('heroDots');
+            if (slides.length < 2) return;
+            var index = 0, delay = 5500, timer = null;
+
+            for (var s = 0; s < slides.length; s++) {
+                (function (n) {
+                    var d = document.createElement('button');
+                    d.type = 'button';
+                    d.setAttribute('aria-label', 'Go to slide ' + (n + 1));
+                    d.addEventListener('click', function () { go(n); auto(); });
+                    dotsWrap.appendChild(d);
+                })(s);
+            }
+            var dots = dotsWrap.children;
+
+            function go(n) {
+                index = (n + slides.length) % slides.length;
+                for (var k = 0; k < slides.length; k++) {
+                    slides[k].classList.toggle('active', k === index);
+                    dots[k].classList.toggle('active', k === index);
+                }
+            }
+            function next() { go(index + 1); }
+            function prev() { go(index - 1); }
+            function auto() { clearInterval(timer); timer = setInterval(next, delay); }
+
+            document.getElementById('heroNext').addEventListener('click', function () { next(); auto(); });
+            document.getElementById('heroPrev').addEventListener('click', function () { prev(); auto(); });
+            hero.addEventListener('mouseenter', function () { clearInterval(timer); });
+            hero.addEventListener('mouseleave', auto);
+
+            go(0);
+            auto();
+        })();
+    </script>
+
+    <!-- Request a quote: posts to FormSubmit (no mail app, no sign-in for the visitor) -->
+    <script>
+        (function () {
+            var form = document.getElementById('quoteForm');
+            if (!form) return;
+            var note = document.getElementById('quoteNote');
+            var button = form.querySelector('button[type="submit"]');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var f = form.elements;
+                var first = f.firstName.value.trim();
+                var last = f.lastName.value.trim();
+                var email = f.email.value.trim();
+                if (!first || !last || !email) {
+                    note.textContent = 'Please fill in your first name, last name and email.';
+                    return;
+                }
+
+                button.disabled = true;
+                note.textContent = 'Sending your request…';
+
+                fetch('https://formsubmit.co/ajax/sales.services@hpcsmc.co.in', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        Name: first + ' ' + last,
+                        Email: email,
+                        Phone: f.phone.value.trim(),
+                        Service: f.service.value,
+                        Requirements: f.requirements.value.trim(),
+                        _subject: 'New quote request from ' + first + ' ' + last,
+                        _template: 'table',
+                        _captcha: 'false'
+                    })
+                })
+                    .then(function (res) { return res.json().catch(function () { return {}; }).then(function (d) { return { ok: res.ok, d: d }; }); })
+                    .then(function (r) {
+                        if (r.ok) {
+                            form.reset();
+                            note.textContent = 'Thank you — your request has been sent. Our team will get back to you shortly.';
+                        } else {
+                            note.textContent = 'Sorry, we could not send that. Please email sales.services@hpcsmc.co.in or call +91 78939 93006.';
+                        }
+                    })
+                    .catch(function () {
+                        note.textContent = 'Sorry, we could not send that. Please email sales.services@hpcsmc.co.in or call +91 78939 93006.';
+                    })
+                    .then(function () { button.disabled = false; });
+            });
+        })();
+    </script>
+
+    <!-- Reveal sections on scroll -->
+    <script>
+        (function () {
+            var targets = document.querySelectorAll(
+                '.overview-section, .gallery-section, .about-section, .bg-section, .quote-section, .clients-section'
+            );
+            if (!('IntersectionObserver' in window) || !targets.length) {
+                for (var i = 0; i < targets.length; i++) targets[i].classList.add('is-visible');
+                return;
+            }
+            for (var j = 0; j < targets.length; j++) targets[j].classList.add('reveal');
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('is-visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            targets.forEach(function (t) { io.observe(t); });
         })();
     </script>
 
